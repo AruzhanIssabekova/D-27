@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание задачи и комментариев</title>
+</head>
+<body>
+    <h1>{% if task_form.instance.pk %}Редактировать задачу{% else %}Создать задачу{% endif %}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ task_form.non_field_errors }}
+        <div>
+            {{ task_form.as_p }}
+        </div>
+
+        <h2>Комментарии</h2>
+        {{ formset.management_form }}
+        {% for form in formset %}
+            <div>
+                {{ form.non_field_errors }}
+                <div>
+                    {{ form.as_p }}
+                </div>
+            </div>
+        {% endfor %}
+
+        <button type="submit">Сохранить</button>
+    </form>
+</body>
+</html>
